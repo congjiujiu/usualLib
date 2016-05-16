@@ -98,3 +98,27 @@ var transNumber(str, type, index) {
     }
     return parseInt(str);
 };
+
+/*
+ * function: judge if a str has invalid char
+ *
+ * str         : string to be judged
+ * illegalChar : an array includes all illegal char , if not set, it should
+ *               be ' and ; and /
+ */
+var fuckSQL = function(str, illegalChar) {
+    function checkIllegal() {
+        var illegalChar = illegalChar || ["'", ";", "/"];
+        var strIsGood = true;
+        for (var i = 0; i < illegalChar.length; i++) {
+            var re = /[';\/]/ig;
+            if (re.test(str)) {
+                strIsGood = false;
+            }
+        }
+
+        return strIsGood;
+    }
+
+    return checkIllegal();
+}

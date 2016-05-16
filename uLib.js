@@ -1,4 +1,8 @@
-// function to restore form
+/* function : to restore form
+ *
+ * usage: add class 'restoreForm' to the form
+ * eg. <form class="restoreForm">...</form>
+ */
 var startRestore = function() {
     function getIndex(node, parent, type) {
         var children = parent.getElementsByTagName(type);
@@ -61,4 +65,36 @@ var startRestore = function() {
     initFormListener();
     fillingForm();
     cleanRestore();
+};
+
+/*
+ * function : translate a string to number for selected types
+ *
+ * str   : string to be translated
+ * type  : 1 - all numbers link together eg. 12ss5s7 -> 1257
+ *         2 - choose each number single eg. 12ss5s7 -> [1,2,5,7]
+ *         3 - choose number linked eg. 12ss5s7 -> [12, 5, 7]
+ * index : if type == 2 or 3, return the index number of the anwser
+ */
+var transNumber(str, type, index) {
+    if (type == 1) {
+        var patten = /\d+/ig;
+        return parseInt(str.match(patten).join(""));
+    } else if (type == 2) {
+        var patten = /[0-9]/ig;
+        return index || index == 0 ? str.match(patten).map(Number)[index] : str.match(patten).map(Number);
+    } else if (type == 3) {
+        var patten = /[0-9]*/ig;
+        var res = str.match(patten);
+        for (var i = 0; i < res.length; i++) {
+            if (res[i] == "") {
+                res.splice(i, 1);
+                i--;
+            }
+        }
+        res = res.map(Number);
+
+        return index || index == 0 ? res[index] : res;
+    }
+    return parseInt(str);
 };

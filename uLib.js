@@ -1,6 +1,7 @@
 /* function : to restore form
  *
  * usage: add class 'restoreForm' to the form
+ *        than use startRestore() to window.ready or document.body.onload
  * eg. <form class="restoreForm">...</form>
  */
 var startRestore = function() {
